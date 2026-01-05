@@ -8,142 +8,139 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Noto Sans TC', sans-serif; }
-        .product-card { transition: all 0.3s ease; }
-        .product-card:focus-within { border-color: #f43f5e; box-shadow: 0 0 0 2px #fff1f2; }
+        /* 讓產品圖片等高且不變形 */
+        .product-img { aspect-ratio: 1 / 1; object-fit: contain; }
+        .qty-input::-webkit-inner-spin-button { opacity: 1; }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen py-8 px-4">
-    <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-rose-100">
+<body class="bg-gray-100 min-h-screen py-6 px-3">
+    <div class="max-w-4xl mx-auto">
         
-        <div class="bg-rose-600 p-8 text-center text-white">
-            <h1 class="text-3xl font-bold mb-2">🌹 福盛園藝</h1>
-            <p class="text-rose-100 text-lg font-medium">2026 西洋情人節預購系統</p>
-        </div>
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8 text-sm text-gray-700">
+            <h1 class="text-2xl font-bold text-rose-600 text-center mb-4">🌹 2026 西洋情人節預購</h1>
+            <div class="grid md:grid-cols-2 gap-6 border-t pt-4">
+                <div>
+                    <p class="font-bold text-gray-900 mb-2">【訂購須知】</p>
+                    <ul class="list-disc ml-4 space-y-1 text-xs">
+                        <li>國外進出口玫瑰有其運輸風險，請衡量訂購。</li>
+                        <li>玫瑰預計 <span class="text-rose-600">OO/OO</span> 抵台，班機延誤屬風險範圍。</li>
+                        <li>預訂完成後 <span class="underline">無法取消退款</span>。</li>
+                        <li>原封原裝損耗約 1–2 支屬正常範圍。</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">💰 匯款資訊</p>
+                    <p class="text-xs italic mb-2">匯款後請截圖傳至 LINE 官方帳號</p>
+                    <p class="text-xs">銀行：(101) 瑞興銀行</p>
+                    <p class="text-xs">帳號：0127221335660</p>
+                </div>
+            </div>
+            <div class="mt-4 text-center">
+                <a href="https://line.me" class="text-green-600 font-bold underline">👉 點此聯繫福盛官方 LINE</a>
+            </div>
+        </section>
 
-        <div class="p-6 md:p-10">
-            <section class="mb-10 bg-rose-50 p-6 rounded-2xl border border-rose-100 text-sm leading-relaxed text-gray-700">
-                <h2 class="text-xl font-bold text-rose-600 mb-4 flex items-center">
-                    <span class="mr-2">📝</span> 訂購須知
+        <form id="orderForm">
+            <section class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+                <h2 class="text-lg font-bold mb-4 flex items-center">
+                    <span class="w-1 h-6 bg-rose-500 mr-2 rounded-full"></span> 訂購人資訊
                 </h2>
-                <div class="space-y-4">
-                    <div>
-                        <p class="font-bold text-gray-900">1. 訂購風險說明</p>
-                        <ul class="list-disc ml-5 space-y-1">
-                            <li>國外進出口玫瑰運輸過程有些無法避免的情況，如對色彩、花材姿態有要求者，建議至店舖挑選。</li>
-                            <li>玫瑰目前預計 <span class="text-rose-600 font-bold">OO/OO</span> 抵台，但因有可能遇到班機延誤，到貨時間皆有風險，請自行衡量訂購。</li>
-                            <li>此次預訂完成，<span class="underline">無法取消退款</span>，訂購前請確認好內容。</li>
-                            <li>原封原裝進口：厄瓜多系列(20枝/束)、肯亞系列(10枝/束)，NG耗損約 1–2 支屬正常範圍。</li>
-                        </ul>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-3 mb-2">
+                        <label class="flex items-center space-x-2 p-2 bg-rose-50 rounded-lg cursor-pointer">
+                            <input type="checkbox" id="terms" class="w-4 h-4 accent-rose-500" required>
+                            <span class="text-sm font-bold text-rose-600">我已閱讀並同意上述訂購須知</span>
+                        </label>
                     </div>
                     <div>
-                        <p class="font-bold text-gray-900">2. 預購價格及運費說明</p>
-                        <p>此次預購價皆不含運費，運費皆另外計算。</p>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">姓名</label>
+                        <input type="text" name="customerName" class="w-full border-gray-200 border p-2 rounded-lg focus:ring-1 focus:ring-rose-400 outline-none" required>
                     </div>
                     <div>
-                        <p class="font-bold text-gray-900">3. 訂購流程</p>
-                        <p>填表後截圖訂購完成畫面 → 匯款 → 至 <a href="https://line.me/R/ti/p/@yourline" class="text-blue-600 underline">福盛官方LINE帳號</a> 回傳截圖。</p>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">電話</label>
+                        <input type="tel" name="customerPhone" class="w-full border-gray-200 border p-2 rounded-lg focus:ring-1 focus:ring-rose-400 outline-none" required>
                     </div>
-                    <div class="bg-white p-3 rounded-lg border border-rose-200">
-                        <p class="font-bold text-gray-900 text-center">💰 匯款資訊</p>
-                        <p class="text-center">銀行：(101) 瑞興銀行 | 帳號：0127221335660</p>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">電子郵件</label>
+                        <input type="email" name="customerEmail" class="w-full border-gray-200 border p-2 rounded-lg focus:ring-1 focus:ring-rose-400 outline-none" required>
                     </div>
-                    <p class="text-xs text-gray-500">※ 預購截止日：2026/OO/OO(O)，逾期恢復原價。</p>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">聯絡方式</label>
+                        <select name="contactType" class="w-full border-gray-200 border p-2 rounded-lg bg-white outline-none">
+                            <option value="LINE">LINE</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Instagram">Instagram</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">詳細聯絡資訊 (ID/帳號)</label>
+                        <input type="text" name="contactDetail" class="w-full border-gray-200 border p-2 rounded-lg outline-none" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1 text-rose-500">預計取貨日 (玫瑰預計OO/OO抵台)</label>
+                        <input type="date" name="pickupDate" class="w-full border-gray-200 border p-2 rounded-lg outline-none" required>
+                    </div>
                 </div>
             </section>
 
-            <form id="orderForm" class="space-y-10">
-                <section>
-                    <h2 class="text-xl font-bold mb-4 text-gray-800 border-l-4 border-rose-500 pl-3">第一步：基本資料</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="md:col-span-2 flex items-center space-x-2 p-3 bg-gray-50 rounded-xl">
-                            <input type="checkbox" id="terms" class="w-5 h-5 accent-rose-500" required>
-                            <label for="terms" class="text-sm font-bold text-rose-600">是，我已閱讀清楚訂購須知</label>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">姓名</label>
-                            <input type="text" name="customerName" class="w-full border-gray-300 border p-2 rounded-lg" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">電話</label>
-                            <input type="tel" name="customerPhone" class="w-full border-gray-300 border p-2 rounded-lg" required>
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700">電子郵件</label>
-                            <input type="email" name="customerEmail" class="w-full border-gray-300 border p-2 rounded-lg" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">聯絡方式</label>
-                            <div class="flex space-x-4 mt-2">
-                                <label><input type="radio" name="contactType" value="Facebook" required> FB</label>
-                                <label><input type="radio" name="contactType" value="Instagram"> IG</label>
-                                <label><input type="radio" name="contactType" value="LINE"> LINE</label>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">詳細聯絡資訊 (帳號/ID)</label>
-                            <input type="text" name="contactDetail" class="w-full border-gray-300 border p-2 rounded-lg" required>
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 text-rose-600">預計取貨日 (玫瑰預計OO/OO抵台)</label>
-                            <input type="date" name="pickupDate" class="w-full border-gray-300 border p-2 rounded-lg" required>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2 class="text-xl font-bold mb-4 text-gray-800 border-l-4 border-rose-500 pl-3">第二步：選擇品項</h2>
-                    <div id="productList" class="space-y-4">
-                        <p class="text-gray-400 animate-pulse text-center py-10">正在載入精選花卉...</p>
-                    </div>
-                </section>
-
-                <section class="bg-gray-50 p-6 rounded-2xl">
-                    <h2 class="text-xl font-bold mb-4 text-gray-800 border-l-4 border-rose-500 pl-3">第三步：配送方式</h2>
-                    <div class="space-y-3">
-                        <label class="flex items-center p-3 bg-white rounded-xl border border-gray-200 cursor-pointer">
-                            <input type="radio" name="shippingMethod" value="台北花市自取" data-fee="0" class="w-5 h-5 accent-rose-500" required checked>
-                            <span class="ml-3 font-medium">台北花市 (自取) - 免運費</span>
-                        </label>
-                        <label class="flex items-center p-3 bg-white rounded-xl border border-gray-200 cursor-pointer">
-                            <input type="radio" name="shippingMethod" value="宅配" data-fee="0" class="w-5 h-5 accent-rose-500">
-                            <span class="ml-3 font-medium">宅配 (運費另計) - 需待客服確認報價</span>
-                        </label>
-                        <label class="flex items-center p-3 bg-white rounded-xl border border-gray-200 cursor-pointer">
-                            <input type="radio" name="shippingMethod" value="回頭車" id="shipBackhaul" data-fee="0" class="w-5 h-5 accent-rose-500">
-                            <span class="ml-3 font-medium">回頭車配送 (限指定地點)</span>
-                        </label>
-                        
-                        <div id="backhaulOptions" class="hidden ml-8 mt-2">
-                            <select id="backhaulLocation" class="w-full border-gray-300 border p-2 rounded-lg bg-white">
-                                <option value="" data-fee="0">請選擇回頭車地點</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="border-t pt-6">
-                    <div class="flex justify-between items-center mb-6">
-                        <span class="text-lg font-bold">預購總計 (含運費)</span>
-                        <span id="finalTotal" class="text-3xl font-black text-rose-600">$0</span>
-                    </div>
-                    <textarea name="note" rows="3" placeholder="其他需求備註..." class="w-full border-gray-300 border p-3 rounded-xl mb-4"></textarea>
-                    <button type="submit" id="submitBtn" class="w-full bg-rose-600 text-white py-4 rounded-2xl font-bold text-xl hover:bg-rose-700 shadow-xl transition-all active:scale-95 disabled:bg-gray-400">
-                        提交預購並查看匯款資訊
-                    </button>
-                </section>
-            </form>
-
-            <div id="successPage" class="hidden text-center py-10">
-                <div class="text-6xl mb-4">✅</div>
-                <h2 class="text-2xl font-bold text-green-600 mb-2">訂購預約已送出！</h2>
-                <p class="text-gray-600 mb-6">請截圖此畫面並依據須知完成匯款與 LINE 回傳。</p>
-                <div class="bg-gray-100 p-4 rounded-xl text-left inline-block mb-6">
-                    <p><b>匯款銀行：</b>瑞興銀行 (101)</p>
-                    <p><b>匯款帳號：</b>0127221335660</p>
-                </div>
-                <br>
-                <button onclick="location.reload()" class="text-rose-600 underline">返回表單</button>
+            <h2 class="text-xl font-bold mb-6 flex items-center px-2 text-gray-800">
+                🌹 選擇花禮系列
+            </h2>
+            <div id="productList" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
+                <p class="col-span-full text-center py-20 text-gray-400 animate-pulse">正在同步花卉品項...</p>
             </div>
+
+            <section class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+                <h2 class="text-lg font-bold mb-4 flex items-center">
+                    <span class="w-1 h-6 bg-rose-500 mr-2 rounded-full"></span> 配送方式
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-gray-50 transition">
+                        <input type="radio" name="shippingMethod" value="台北花市自取" data-fee="0" class="w-4 h-4 accent-rose-500" required checked>
+                        <span class="ml-2 text-sm">台北花市 (自取)</span>
+                    </label>
+                    <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-gray-50 transition">
+                        <input type="radio" name="shippingMethod" value="宅配" data-fee="0" class="w-4 h-4 accent-rose-500">
+                        <span class="ml-2 text-sm">宅配 (待報價)</span>
+                    </label>
+                    <label class="flex items-center p-3 border rounded-xl cursor-pointer hover:bg-gray-50 transition">
+                        <input type="radio" name="shippingMethod" value="回頭車" id="shipBackhaul" class="w-4 h-4 accent-rose-500">
+                        <span class="ml-2 text-sm">回頭車配送</span>
+                    </label>
+                </div>
+                <div id="backhaulOptions" class="hidden mt-4 pt-4 border-t">
+                    <select id="backhaulLocation" class="w-full border-gray-200 border p-3 rounded-xl bg-gray-50 outline-none">
+                        <option value="" data-fee="0">請選擇回頭車地點</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="sticky bottom-4 mx-auto max-w-2xl bg-white border-2 border-rose-500 rounded-3xl shadow-2xl p-6">
+                <div id="summaryContainer" class="mb-4 text-xs text-gray-600 space-y-1 max-h-32 overflow-y-auto border-b pb-2 hidden">
+                    </div>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-xs text-gray-400 font-bold uppercase">Total Amount</p>
+                        <p id="finalTotal" class="text-3xl font-black text-rose-600">$0</p>
+                    </div>
+                    <button type="submit" id="submitBtn" class="bg-rose-600 text-white px-8 py-3 rounded-2xl font-bold text-lg hover:bg-rose-700 shadow-lg transition-transform active:scale-95">
+                        確認送出
+                    </button>
+                </div>
+            </section>
+        </form>
+
+        <div id="successPage" class="hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center p-6 text-center">
+            <div class="text-6xl mb-4">🎉</div>
+            <h2 class="text-3xl font-bold text-rose-600 mb-2">預購已提交！</h2>
+            <p class="text-gray-500 mb-6 font-bold">應匯總金額：<span id="remitAmount" class="text-2xl text-rose-600 font-black"></span></p>
+            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 text-left mb-8 w-full max-w-sm">
+                <p class="text-sm mb-1"><b>銀行：</b>瑞興銀行 (101)</p>
+                <p class="text-sm mb-1"><b>帳號：</b>0127221335660</p>
+                <p class="text-xs text-rose-500 mt-2 italic">請截圖此畫面，並依據須知回傳匯款證明。</p>
+            </div>
+            <a href="https://line.me" class="w-full max-w-sm bg-green-500 text-white py-4 rounded-2xl font-bold shadow-lg mb-4">開啟 LINE 回傳截圖</a>
+            <button onclick="location.reload()" class="text-gray-400 underline">返回</button>
         </div>
     </div>
 
@@ -161,7 +158,7 @@
         const productList = document.getElementById('productList');
         const backhaulSelect = document.getElementById('backhaulLocation');
 
-        // 1. 初始化地點
+        // 初始化地點
         Object.keys(backhaulData).forEach(loc => {
             const opt = document.createElement('option');
             opt.value = loc;
@@ -170,25 +167,24 @@
             backhaulSelect.appendChild(opt);
         });
 
-        // 2. 抓取品項
+        // 抓取品項
         fetch(scriptURL)
             .then(res => res.json())
             .then(data => {
                 productData = data;
                 productList.innerHTML = '';
                 data.forEach((p, i) => {
+                    // 這裡根據截圖風格建立卡片
                     const card = `
-                        <div class="product-card flex items-center p-3 border rounded-2xl hover:bg-gray-50">
-                            <img src="${p.img}" class="w-16 h-16 object-cover rounded-lg mr-4">
-                            <div class="flex-1">
-                                <p class="text-xs text-rose-400 font-bold">${p.series}</p>
-                                <p class="font-bold text-gray-800">${p.name}</p>
-                                <p class="text-rose-600 font-bold">$${p.price}</p>
-                            </div>
-                            <div class="flex items-center border rounded-lg px-2 bg-white">
-                                <span class="text-xs text-gray-400 mr-2 uppercase">QTY</span>
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-3 flex flex-col items-center text-center">
+                            <img src="${p.img}" class="product-img w-full mb-3 rounded-lg">
+                            <h3 class="text-rose-600 font-black text-lg mb-1">${p.series}</h3>
+                            <p class="text-[13px] font-bold text-gray-700 h-10 overflow-hidden leading-tight mb-1">${p.name}</p>
+                            <p class="text-green-600 font-bold text-sm mb-3">NT$${p.price}</p>
+                            <div class="w-full flex items-center justify-between pt-3 border-t mt-auto">
+                                <span class="text-[11px] text-gray-400 font-bold">數量 :</span>
                                 <input type="number" data-index="${i}" value="0" min="0" 
-                                    class="qty-input w-12 py-1 text-center font-bold focus:outline-none">
+                                    class="qty-input w-16 border rounded-lg p-1 text-center font-bold text-gray-800 focus:border-rose-400 outline-none">
                             </div>
                         </div>
                     `;
@@ -206,31 +202,44 @@
 
         function calculateTotal() {
             let subtotal = 0;
-            document.querySelectorAll('.qty-input').forEach(input => {
+            let summaryHtml = '';
+            const inputs = document.querySelectorAll('.qty-input');
+            
+            inputs.forEach(input => {
                 const qty = parseInt(input.value) || 0;
-                subtotal += qty * productData[input.dataset.index].price;
+                if (qty > 0) {
+                    const p = productData[input.dataset.index];
+                    subtotal += qty * p.price;
+                    summaryHtml += `<div class="flex justify-between"><span>${p.name} x ${qty}</span><span>$${qty * p.price}</span></div>`;
+                }
             });
 
             const shipMethod = document.querySelector('input[name="shippingMethod"]:checked').value;
             let shipFee = 0;
-
-            const bhDiv = document.getElementById('backhaulOptions');
             if (shipMethod === '回頭車') {
-                bhDiv.classList.remove('hidden');
+                document.getElementById('backhaulOptions').classList.remove('hidden');
                 shipFee = parseInt(backhaulSelect.selectedOptions[0].dataset.fee) || 0;
             } else {
-                bhDiv.classList.add('hidden');
+                document.getElementById('backhaulOptions').classList.add('hidden');
             }
 
-            document.getElementById('finalTotal').textContent = `$${subtotal + shipFee}`;
+            const total = subtotal + shipFee;
+            document.getElementById('finalTotal').textContent = `$${total}`;
+            document.getElementById('remitAmount').textContent = `$${total}`;
+            
+            const container = document.getElementById('summaryContainer');
+            if (summaryHtml) {
+                container.innerHTML = summaryHtml + `<div class="border-t mt-1 pt-1 text-rose-500">運費: ${shipMethod} (+$${shipFee})</div>`;
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+            }
         }
 
-        // 3. 提交
+        // 提交
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = document.getElementById('submitBtn');
             const items = [];
-            
             document.querySelectorAll('.qty-input').forEach(input => {
                 const qty = parseInt(input.value) || 0;
                 if (qty > 0) {
@@ -239,34 +248,31 @@
                 }
             });
 
-            if (items.length === 0) return alert('請至少選擇一個品項');
-
+            if (items.length === 0) return alert('請先選擇訂購品項與數量');
+            const btn = document.getElementById('submitBtn');
             btn.disabled = true;
-            btn.textContent = '提交中...';
+            btn.textContent = '傳送中...';
 
-            const shippingOption = document.querySelector('input[name="shippingMethod"]:checked');
             const payload = {
                 customer: {
                     name: this.customerName.value,
                     phone: this.customerPhone.value,
                     email: this.customerEmail.value,
-                    contactType: document.querySelector('input[name="contactType"]:checked').value,
+                    contactType: this.contactType.value,
                     contactDetail: this.contactDetail.value,
-                    pickupDate: this.pickupDate.value,
-                    note: this.note.value
+                    pickupDate: this.pickupDate.value
                 },
                 items: items,
                 shipping: {
-                    method: shippingOption.value,
-                    location: shippingOption.value === '回頭車' ? backhaulSelect.value : 'N/A',
-                    fee: shippingOption.value === '回頭車' ? parseInt(backhaulSelect.selectedOptions[0].dataset.fee) : 0
+                    method: document.querySelector('input[name="shippingMethod"]:checked').value,
+                    location: backhaulSelect.value || 'N/A',
+                    fee: parseInt(backhaulSelect.selectedOptions[0].dataset.fee) || 0
                 },
                 totalWithShipping: parseInt(document.getElementById('finalTotal').textContent.replace('$', ''))
             };
 
             fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
             .then(() => {
-                this.classList.add('hidden');
                 document.getElementById('successPage').classList.remove('hidden');
                 window.scrollTo(0,0);
             });
