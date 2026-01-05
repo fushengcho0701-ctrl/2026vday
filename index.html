@@ -11,12 +11,14 @@
         .product-img { aspect-ratio: 1 / 1.1; object-fit: contain; }
         .qty-input::-webkit-inner-spin-button { opacity: 1; }
         .sticky-footer { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
+        /* 針對截圖優化的樣式 */
+        .order-slip { border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; background: #fff; }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen py-6 px-3 pb-32">
     <div class="max-w-4xl mx-auto">
         
-        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8 text-sm text-gray-700">
+        <section id="noticeSection" class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8 text-sm text-gray-700">
             <h1 class="text-2xl font-bold text-rose-600 text-center mb-4">🌹 2026 西洋情人節預購</h1>
             <div class="grid md:grid-cols-2 gap-6 border-t pt-4">
                 <div>
@@ -123,26 +125,75 @@
                         <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Total Amount</p>
                         <p id="finalTotal" class="text-3xl font-black text-rose-600">$0</p>
                     </div>
-                    <button type="submit" id="submitBtn" class="bg-rose-600 text-white px-10 py-3 rounded-2xl font-bold text-lg hover:bg-rose-700 shadow-lg active:scale-95">
+                    <button type="submit" id="submitBtn" class="bg-rose-600 text-white px-10 py-3 rounded-2xl font-bold text-lg hover:bg-rose-700 shadow-lg transition-transform active:scale-95">
                         確認送出
                     </button>
                 </div>
             </section>
         </form>
 
-        <div id="successPage" class="hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center p-6 text-center">
-            <div class="text-6xl mb-4">✅</div>
-            <h2 class="text-2xl font-bold text-rose-600 mb-2">預購單已送出！</h2>
-            <p class="text-gray-500 mb-6 font-bold text-sm">應匯總金額：<span id="remitAmount" class="text-2xl text-rose-600 font-black"></span></p>
-            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 text-left mb-8 w-full max-w-xs shadow-sm">
-                <p class="text-sm mb-1"><b>銀行：</b>瑞興銀行 (101)</p>
-                <p class="text-sm mb-1"><b>帳號：</b>0127221335660</p>
-                <p class="text-[11px] text-rose-500 mt-3 font-medium">※ 請截圖此畫面，並至 LINE 回傳匯款證明。</p>
+        <div id="successPage" class="hidden fixed inset-0 bg-white z-50 overflow-y-auto p-4 md:p-8">
+            <div class="max-w-2xl mx-auto">
+                <div class="text-center mb-6">
+                    <div class="text-5xl mb-2">✅</div>
+                    <h2 class="text-2xl font-black text-rose-600 uppercase tracking-widest">預購單已送出</h2>
+                    <p class="text-gray-400 text-xs">請截圖此畫面並至 LINE 回傳匯款證明</p>
+                </div>
+
+                <div class="order-slip shadow-xl border-2 border-gray-100">
+                    <div class="flex justify-between items-start border-b pb-4 mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">福盛園藝 - 預購出貨單</h3>
+                            <p class="text-[10px] text-gray-400" id="orderTimestamp"></p>
+                        </div>
+                        <div class="text-right">
+                            <span class="bg-rose-100 text-rose-600 text-[10px] px-2 py-1 rounded-full font-bold">2026西洋情人節</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-y-2 text-sm mb-6 bg-gray-50 p-3 rounded-xl">
+                        <div><span class="text-gray-400 mr-2">姓名:</span><span id="resName" class="font-bold"></span></div>
+                        <div><span class="text-gray-400 mr-2">電話:</span><span id="resPhone" class="font-bold"></span></div>
+                        <div class="col-span-2"><span class="text-gray-400 mr-2">聯絡:</span><span id="resContact" class="font-bold"></span></div>
+                        <div><span class="text-gray-400 mr-2">取貨:</span><span id="resDate" class="font-bold"></span></div>
+                        <div><span class="text-gray-400 mr-2">配送:</span><span id="resShip" class="font-bold"></span></div>
+                    </div>
+
+                    <div class="mb-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="text-gray-400 text-left border-b text-[10px] uppercase">
+                                    <th class="pb-2">品名</th>
+                                    <th class="pb-2 text-center">數量</th>
+                                    <th class="pb-2 text-right">小計</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resItemsList">
+                                </tbody>
+                        </table>
+                    </div>
+
+                    <div class="border-t pt-4 text-right">
+                        <p class="text-xs text-gray-500">應匯總金額 (含運費)</p>
+                        <p id="resTotal" class="text-4xl font-black text-rose-600"></p>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-dashed border-gray-200">
+                        <div class="bg-rose-50 p-4 rounded-2xl border border-rose-100">
+                            <h4 class="text-xs font-bold text-rose-600 mb-2">💰 匯款帳戶</h4>
+                            <p class="text-sm font-bold text-gray-700">銀行：瑞興銀行 (101)</p>
+                            <p class="text-sm font-bold text-gray-700">帳號：0127221335660</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex flex-col space-y-4">
+                    <a href="https://lin.ee/TDtujRf" target="_blank" class="bg-green-500 text-white py-4 rounded-2xl font-bold shadow-lg flex items-center justify-center space-x-2">
+                        <span>開啟 LINE 回傳截圖</span>
+                    </a>
+                    <button onclick="location.reload()" class="text-gray-400 underline text-xs">返回修改資料</button>
+                </div>
             </div>
-            <a href="https://lin.ee/TDtujRf" target="_blank" class="w-full max-w-xs bg-green-500 text-white py-4 rounded-2xl font-bold shadow-lg mb-4 flex items-center justify-center">
-                開啟 LINE 回傳截圖
-            </a>
-            <button onclick="location.reload()" class="text-gray-400 underline text-xs">返回</button>
         </div>
     </div>
 
@@ -183,7 +234,7 @@
                             <div class="w-full flex items-center justify-between pt-3 border-t border-gray-50 mt-3">
                                 <span class="text-[10px] text-gray-400 font-bold uppercase">Qty</span>
                                 <input type="number" data-index="${i}" value="0" min="0" 
-                                    class="qty-input w-14 border rounded-lg py-1 text-center font-bold text-gray-800 focus:border-rose-400 outline-none">
+                                    class="qty-input w-14 border rounded-lg py-1 text-center font-bold text-gray-800 focus:border-rose-400 outline-none transition">
                             </div>
                         </div>
                     `;
@@ -222,7 +273,6 @@
 
             const total = subtotal + shipFee;
             document.getElementById('finalTotal').textContent = `$${total}`;
-            document.getElementById('remitAmount').textContent = `$${total}`;
             
             const container = document.getElementById('summaryContainer');
             if (summaryHtml) {
@@ -245,9 +295,14 @@
             });
 
             if (items.length === 0) return alert('請先輸入訂購數量！');
+            if (!document.getElementById('terms').checked) return alert('請先勾選同意訂購須知');
+
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
-            btn.textContent = '傳送中...';
+            btn.textContent = '訂單傳送中...';
+
+            const shippingOption = document.querySelector('input[name="shippingMethod"]:checked');
+            const totalVal = document.getElementById('finalTotal').textContent;
 
             const payload = {
                 customer: {
@@ -260,15 +315,34 @@
                 },
                 items: items,
                 shipping: {
-                    method: document.querySelector('input[name="shippingMethod"]:checked').value,
-                    location: backhaulSelect.value || 'N/A',
-                    fee: parseInt(backhaulSelect.selectedOptions[0].dataset.fee) || 0
+                    method: shippingOption.value,
+                    location: shippingOption.value === '回頭車' ? backhaulSelect.value : 'N/A',
+                    fee: shippingOption.value === '回頭車' ? parseInt(backhaulSelect.selectedOptions[0].dataset.fee) : 0
                 },
-                totalWithShipping: parseInt(document.getElementById('finalTotal').textContent.replace('$', ''))
+                totalWithShipping: parseInt(totalVal.replace('$', ''))
             };
 
             fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
             .then(() => {
+                // 成功後顯示出貨單
+                document.getElementById('resName').textContent = payload.customer.name;
+                document.getElementById('resPhone').textContent = payload.customer.phone;
+                document.getElementById('resContact').textContent = `(${payload.customer.contactType}) ${payload.customer.contactDetail}`;
+                document.getElementById('resDate').textContent = payload.customer.pickupDate;
+                document.getElementById('resShip').textContent = payload.shipping.method === '回頭車' ? `回頭車 - ${payload.shipping.location}` : payload.shipping.method;
+                document.getElementById('orderTimestamp').textContent = '訂單時間: ' + new Date().toLocaleString();
+                document.getElementById('resTotal').textContent = totalVal;
+
+                let itemsHtml = '';
+                payload.items.forEach(item => {
+                    itemsHtml += `<tr class="border-b border-gray-50"><td class="py-3">${item.name}</td><td class="py-3 text-center">x ${item.quantity}</td><td class="py-3 text-right font-bold">$${item.price * item.quantity}</td></tr>`;
+                });
+                // 加入運費列
+                if (payload.shipping.fee > 0) {
+                    itemsHtml += `<tr class="text-rose-500 font-bold"><td class="py-3">運費 (${payload.shipping.location})</td><td></td><td class="py-3 text-right">+$${payload.shipping.fee}</td></tr>`;
+                }
+
+                document.getElementById('resItemsList').innerHTML = itemsHtml;
                 document.getElementById('successPage').classList.remove('hidden');
                 window.scrollTo(0,0);
             });
